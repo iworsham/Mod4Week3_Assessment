@@ -26,11 +26,21 @@ namespace CommerceMvc.Controllers
         [HttpPost]
         public IActionResult Login(string currentUser)
         {
+            Response.Cookies.Append(currentUser, "logged in");
             return RedirectToAction("Index");
         }
 
         public IActionResult Logout()
         {
+            
+            
+            var cookie = Request.Cookies["currentUser"];
+            var cookieOptions = new CookieOptions
+            {
+              Expires = DateTime.Now.AddDays(-1)
+            };
+
+            
             return RedirectToAction("Index");
         }
 
